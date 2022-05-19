@@ -1,0 +1,13 @@
+void set_Cursor() {
+   char posX,posY,b;//position [0][0]
+   if( position[pos/game_Type][pos%game_Type]==0){
+            posX=((pos%game_Type)*stepX);
+            posY=((pos/game_Type)*stepY);
+            position[pos/game_Type][pos%game_Type]='_';  
+            Nokia5110_SetCursor(posX,posY);
+            Nokia5110_OutChar('_');
+            Nokia5110_SetCursor(posX,posY);
+        }
+  
+     
+   }
