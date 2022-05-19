@@ -1,0 +1,15 @@
+void Draw(){
+  char i,j,x,y;
+  x = 84/game_Type; // 84 is no.of horizonital Pixels
+  y = 48/game_Type; // 48 is no.of vertical Pixels
+  
+  for(i=0;i<game_Type;i++){
+    // Turn on the specified pixel in the screen buffer.
+    for(j=0;j<48;j++)Nokia5110_SetPixel(x*i,j); // set the Horizonital Pixels
+    for(j=0;j<84;j++)Nokia5110_SetPixel(j,y*i); // set the vertical Pixels
+  }
+  
+   Nokia5110_SetCursor(0,5);
+   Nokia5110_OutString("Player X..."); // print 'player X...' on the screen
+  
+}
