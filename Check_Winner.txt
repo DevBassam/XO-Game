@@ -1,0 +1,27 @@
+char checkWin(void){/* this function returns  x--->player x wins
+                                              Y---> player y wins
+                                              q---> the game is full with no winner                      
+
+*/
+
+	   char i,j,countrX=0,countrY=0,countcX=0,countcY=0,countdX=0,countdY=0,countdrX=0,countdrY=0,Full=1;
+		 for(i=0;i<game_Type;i++){          //check all positions in array
+			 countrX=0,countrY=0,countcX=0,countcY=0;
+		    for(j=0;j<game_Type;j++){
+					if(position[i][j]=='X')countrX++;  // counter check x in rows
+					if(position[i][j]=='O')countrY++;	// counter check o in rows
+          if(position[j][i]=='X')countcX++;  // counter check x in cols
+          if(position[j][i]=='O')countcY++;	// counter check o in cols
+          if(position[i][j]==0) Full=0;			
+		 }
+				if(position[i][i]=='X')countdX++;  // counter check x in diagonal
+				if(position[i][i]=='O')countdY++;  // counter check o in diagonal
+		    if(position[i][game_Type-1-i]=='X')countdrX++; // counter check x in other diagonal
+				if(position[i][game_Type-1-i]=='O')countdrY++; // counter check o in other diagonal
+				if(countrX==game_Type||countcX==game_Type||countdX==game_Type||countdrX==game_Type)return 'x';
+		    if(countrY==game_Type||countcY==game_Type||countdY==game_Type||countdrY==game_Type)return 'o';
+				
+	 }
+		 if(Full) return 'q';
+	   return 0;
+}
