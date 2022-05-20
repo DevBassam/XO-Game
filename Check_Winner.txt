@@ -1,4 +1,5 @@
-char checkWin(void){/* this function returns  x--->player x wins
+char checkWin(void){
+/* this function returns  x--->player x wins
                                               Y---> player y wins
                                               q---> the game is full with no winner                      
 
