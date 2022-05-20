@@ -93,13 +93,13 @@ int main(void){
 	 Nokia5110_Clear();
 	 Delay100ms(10);
 	 Draw();
-	 set_Cursor();
+	 set_Cursor();        //put the cursor in the specific positions 
 	 Nokia5110_SetCursor(0,0);
 	
  
 while(1){
 		 SW1 = GPIO_PORTF_DATA_R&0x10;     // read PF4 into SW1
-     SW2 = GPIO_PORTF_DATA_R&0x01;     // read PF0 into SW2
+  		 SW2 = GPIO_PORTF_DATA_R&0x01;     // read PF0 into SW2
 		 SW3 = GPIO_PORTE_DATA_R&0x01;     // read PE0 into SW3
 		
 	
@@ -109,8 +109,8 @@ while(1){
         remove_Cursor();				
 				
 				pos++;
-				if(pos>game_element)pos=game_element; // game element 3 * 3 = 8
-    	   while(!(GPIO_PORTF_DATA_R&0x01));
+				if(pos>game_element)pos=game_element; 		// game element 3 * 3 = 8 --->bottom right square
+    	 			while(!(GPIO_PORTF_DATA_R&0x01));               // if user still pressing the button no thing will happen
 				
 				  set_Cursor();
 				
@@ -125,7 +125,7 @@ while(1){
 				remove_Cursor();
 				
 				pos--;
-				if(pos<0)pos=0;
+				if(pos<0)pos=0;                               // top left square
 				while(!(GPIO_PORTF_DATA_R&0x10));
 				
 				  set_Cursor();
@@ -136,18 +136,18 @@ while(1){
 			}
 			if(SW3&&done){ // SW3 pressed
 				
-				while(GPIO_PORTE_DATA_R&0x01);
+				while(GPIO_PORTE_DATA_R&0x01);                     // if user still pressing the button no thing will happen
 				
 				if(!(player)){
 					
 					if(position[pos/game_Type][pos%game_Type]=='_')
-					{
-				  	Nokia5110_OutChar('X');
+					{/*draw x in screen and put value X in the array*/
+				  	Nokia5110_OutChar('X');          
 				  	position[pos/game_Type][pos%game_Type]='X';
 						
-						// increment cursor
-						pos++;
-					  if(pos>game_element)pos=game_element;
+						
+						pos++;                  // increment cursor
+					  if(pos>game_element)pos=game_element;              //  bottom right square
 						
 						
 					
@@ -157,7 +157,7 @@ while(1){
 						Nokia5110_OutString("Player O..."); 
 						set_Cursor();
 						
-						player^=1;
+						player^=1;             // toggle for player O
 						
 					}
 					
@@ -181,14 +181,16 @@ while(1){
 							Nokia5110_OutString("Player X...");
 							set_Cursor();
 						
-							player^=1;
+							player^=1;                        // toggle for player X
 					}
 				}
 				
 				
 				Delay100ms(4);
 			}
-			if(checkWin()){
+			if(checkWin()){                             /* returns  X---> player X wins
+			                                                        Y---> player Y wins
+										q---> game is full and noone wins*/
 				if( checkWin() =='x') {
 					if(done){
 					Nokia5110_Clear();
