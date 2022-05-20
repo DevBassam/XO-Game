@@ -1,0 +1,43 @@
+unsigned long start(){
+  unsigned long  SW1, SW2 ,SW3,choose=3;
+  
+     
+  Nokia5110_SetCursor(0,0);
+  Nokia5110_OutString("3*3  or  4*4");
+  Nokia5110_SetCursor(1,2);
+  Nokia5110_OutChar('_');
+  
+  while(1){
+    
+     while(1)
+     {
+       if(GPIO_PORTF_RIS_R & (1 << 0) || GPIO_PORTF_RIS_R & (1 << 4))
+         break;
+     }
+  
+     SW1 = GPIO_PORTF_DATA_R&0x10;     // read PF4 into SW1
+     SW2 = GPIO_PORTF_DATA_R&0x01;     // read PF0 into SW2
+     SW3 = GPIO_PORTE_DATA_R&0x01;     // read PE0 into SW3
+    
+  if(!SW1){
+    
+    Nokia5110_SetCursor(9,2);
+    Nokia5110_OutChar(' ');
+    Nokia5110_SetCursor(1,2);
+    Nokia5110_OutChar('_');
+    
+    choose=3;
+    
+  }
+  if(!SW2){
+    Nokia5110_SetCursor(1,2);
+    Nokia5110_OutChar(' ');
+    Nokia5110_SetCursor(9,2);
+    Nokia5110_OutChar('_');
+    choose=4;
+    
+  }
+   return choose;
+}
+  
+}
